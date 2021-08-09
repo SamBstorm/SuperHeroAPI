@@ -3,6 +3,21 @@ const superHeroRoutes = (app, fs) => {
     const dataPath = './data/superhero.json';
 
     //READ
+    app.get('/api', (req, res) => {
+        console.log(`GET all data`)
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+            let result = JSON.parse(data);
+            result = {
+                    response: "success",
+                    results: result
+                };
+            res.send(result);
+        });
+    });
+
     app.get('/api/:id', (req, res) => {
         console.log(`GET with id : ${req.params.id}`)
         fs.readFile(dataPath, 'utf8', (err, data) => {
